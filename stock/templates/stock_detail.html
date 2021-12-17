@@ -1,0 +1,163 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<div style="padding: 1%;">
+    <div class="column" style="float: left; width: 70%;">
+        <h3>{{ object.name }} - {{ object.ticker }}</h3>
+        <canvas id="stockChart"></canvas>
+    </div>
+    <div class="column" style="float: left; width: 30%;">
+        <table style="margin-left: 20%; width: 80%">
+            <tr>
+                <td>Sista Datum</td>
+                <td>{{ data_set.last_date }} - {{ data_set.week_day }}</td>
+            </tr>
+            <tr>
+                <td>Ändring</td>
+                <td>{{ data_set.change_percentage }} %</td>
+            </tr>
+            <tr>
+                <td>Dagar</td>
+                <td>{{ data_set.days }}</td>
+            </tr>
+            <tr>
+                <td>Positiva</td>
+                <td>{{ data_set.positive_days }}</td>
+            </tr>
+            <tr>
+                <td>Negativa</td>
+                <td>{{ data_set.negative_days }}</td>
+            </tr>
+            <tr>
+                <td>L/H ratio</td>
+                <td>{{ data_set.low_high_ratio }}</td>
+            </tr>
+            <tr>
+                <td>---</td>
+                <td>---</td>
+            </tr>
+
+            <tr>
+                <td>Positiva vågor</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Antal</td>
+                <td>{{ data_set.waves.positive_waves_amount }}</td>
+            </tr>
+            <tr>
+                <td>Avg längd</td>
+                <td>{{ data_set.waves.positive_average_length }}</td>
+            </tr>
+            <tr>
+                <td>Median längd</td>
+                <td>{{ data_set.waves.positive_median_length }}</td>
+            </tr>
+            <tr>
+                <td>Avg förändring</td>
+                <td>{{ data_set.waves.positive_average_percent_change }} %</td>
+            </tr>
+            <tr>
+                <td>Negativ efter</td>
+                <td>{{ data_set.waves.negative_after_positive_chance }} %</td>
+            </tr>
+            <tr>
+                <td>Positiv efter</td>
+                <td>{{ data_set.waves.positive_after_positive_chance }} %</td>
+            </tr>
+
+            <tr>
+                <td>---</td>
+                <td>---</td>
+            </tr>
+
+            <tr>
+                <td>Negativa vågor</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Antal</td>
+                <td>{{ data_set.waves.negative_waves_amount }}</td>
+            </tr>
+            <tr>
+                <td>Avg längd</td>
+                <td>{{ data_set.waves.negative_average_length }}</td>
+            </tr>
+            <tr>
+                <td>Median längd</td>
+                <td>{{ data_set.waves.negative_median_length }}</td>
+            </tr>
+            <tr>
+                <td>Avg förändring</td>
+                <td>{{ data_set.waves.negative_average_percent_change }} %</td>
+            </tr>
+            <tr>
+                <td>Positiv efter</td>
+                <td>{{ data_set.waves.positive_after_negative_chance }} %</td>
+            </tr>
+            <tr>
+                <td>Negativ efter</td>
+                <td>{{ data_set.waves.negative_after_negative_chance }} %</td>
+            </tr>
+
+            <tr>
+                <td>---</td>
+                <td>---</td>
+            </tr>
+            <tr>
+                <td>Nuvarande</td>
+                <td>{{ data_set.waves.current_wave }}</td>
+            </tr>
+            <tr>
+                <td>Längd</td>
+                <td>{{ data_set.waves.current_wave_length }}</td>
+            </tr>
+            <tr>
+                <td>Ändring</td>
+                <td>{{ data_set.waves.current_wave_change }}</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <script>
+        var days =  JSON.parse("{{ days }}");
+        var closePrices = JSON.parse("{{ close_prices }}");
+
+        new Chart("stockChart", {
+            type: "line",
+                data: {
+                    labels: days,
+                    datasets: [
+                    {% for dict in positive_waves_dict %}
+                    {
+                        label: "Positive",
+                        fill: true,
+                        borderColor: '#33cc33',
+                        data: {{ dict|safe }},
+                        borderWidth: 4,
+                    },
+                    {% endfor %}
+                    {% for dict in negative_waves_dict %}
+                    {
+                        borderWidth: 4,
+                        label: "Negative",
+                        fill: true,
+                        borderColor: '#eb0e0e',
+                        data: {{ dict|safe }},
+                    },
+                    {% endfor %}
+
+                    {
+                        borderWidth: 2,
+                        label: "Close prices",
+                        fill: false,
+                        borderColor: '#040504',
+                        data: closePrices,
+                    },
+                ]
+                }
+        });
+    </script>
+
+</div>
+{% endblock content %}

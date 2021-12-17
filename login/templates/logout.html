@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{%  static  'css/login.css'  %}">
+</head>
+<body>
+<div class="centerBox">
+    <h2>Du har loggats ut</h2>
+    <a href="{% url 'login' %}" class="btn_one">Logga in igen</a>
+</div>
+</body>
+</html>

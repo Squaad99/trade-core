@@ -1,2 +1,0 @@
-# Trade-Core
-Trading

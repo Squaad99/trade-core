@@ -1,0 +1,2 @@
+POSITIVE = "positive"
+NEGATIVE = "negative"

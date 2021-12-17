@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{%  static  'css/login.css'  %}">
+    <link rel="stylesheet" href="{%  static  'css/theme_1.css'  %}">
+</head>
+<body>
+<div class="centerBox">
+    <h2>Logga in</h2>
+
+    <form method="POST">{% csrf_token %}
+        <!-- form variable -->
+        {{ form.as_p }}
+
+        <input type="submit" name="sumbit" class="btn_one" value="Logga in" style="margin: 0 auto; display: block; width: 100%;">
+    </form>
+</div>
+</body>
+</html>

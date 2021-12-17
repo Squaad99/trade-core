@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #d9dadb;
+}
+
+.btn_one {
+    background-color: #6495ED;
+    color: white;
+    padding: 8px;
+    padding-left: 14px;
+    padding-right: 14px;
+    font-size: 12pt;
+    border: 2px solid grey;
+    border-radius: 10px;
+}
+
+.list-table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+.list-table th {
+  text-align: left;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.list-table td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  border: grey 1px solid;
+  background-color: #F8F8F8;
+}
+
+
+.list-one {
+    list-style-type: none;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding: 0;
+}
+
+.list-one li {
+    font-size: 14pt;
+}
+
+hr {
+    border-top: 2px solid #A9A9A9;
+    margin-top: 30px;
+}
+
+.thin-hr {
+    border-top: 1px solid #A9A9A9;
+    margin-top: 10px;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}
+
+h1 {
+    display: inline;
+    padding-right: 2%;
+}
+
+h2 {
+    display: inline;
+    padding-right: 2%;
+}
+
+h3 {
+    display: inline;
+    padding-right: 2%;
+}
+
+h4 {
+    display: inline;
+    padding-right: 2%;
+}
+
+h5 {
+    display: inline;
+    padding-right: 2%;
+}
+
+h6 {
+    display: inline;
+    padding-right: 2%;
+}
+
+.base-label {
+    display: block;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: 14pt;
+}
+
+.clickable-row {
+    cursor: pointer;
+}

@@ -1,0 +1,25 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="{%  static  'base.css'  %}">
+    <link rel="stylesheet" href="{%  static  'navbar.css'  %}">
+    <link rel="stylesheet" href="{%  static  'css/theme_1.css'  %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <title>Trade Core</title>
+</head>
+
+<body>
+    <div class="mainDiv">
+        <ul id="navbar">
+            <li class="menuItem"><a href="{% url 'stock-list' %}">Aktier</a></li>
+            <li class="menuItem"><a href="{% url 'event-start' 'check' %}">Event start</a></li>
+            <li class="menuItem" style="float: right;"><a href="{% url 'logout' %}">Logga ut</a></li>
+        </ul>
+
+        <main role="main">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

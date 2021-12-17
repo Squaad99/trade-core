@@ -1,0 +1,27 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<div style="padding: 1%;">
+    <h1>Aktier</h1>
+    <table class="list-table" style="margin-top: 25px;">
+    <tr>
+        <th>Aktie</th>
+        <th>Ticker</th>
+        <th>Status</th>
+    </tr>
+    {% for object in object_list %}
+        <tr>
+            <td>
+                <a href="{% url 'stock-detail' object.id %}">{{ object.name }}</a>
+            </td>
+            <td>{{ object.ticker }}</td>
+            {% if object.status %}
+                <td style="background-color: green">Success</td>
+            {% else %}
+                <td style="background-color: red">Error</td>
+            {% endif %}
+
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endblock content %}

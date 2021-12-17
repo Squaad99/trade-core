@@ -1,0 +1,12 @@
+.mainDiv {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2%;
+    background-color: white;
+}
