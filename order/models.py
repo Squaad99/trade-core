@@ -15,8 +15,10 @@ class BuyTransaction(models.Model):
 
 class SellTransaction(models.Model):
     status = models.CharField(max_length=30, default=Transactions.ACTIVE)
-    price = models.FloatField()
+    price = models.FloatField(default=None, blank=True)
     amount = models.FloatField()
+    take_profit = models.FloatField()
+    stop_loss = models.FloatField()
     order_id = models.CharField(max_length=30, blank=True)
     stop_loss_id = models.CharField(max_length=30, blank=True)
     created = models.DateTimeField(auto_now_add=True)

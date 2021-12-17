@@ -121,13 +121,4 @@ class AvzClient:
     def place_stop_loss_sell_order(self):
         list_dd = self.client.get_all_stop_losses()
         self.client.place_order()
-        OrderType
 
-
-
-        print("dd")
-
-
-avz_client = AvzClient()
-
-order = avz_client.place_stop_loss_sell_order()
