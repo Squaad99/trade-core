@@ -7,3 +7,9 @@
 # python manage.py migrate
 
 # python manage.py createsuperuser --username=Squaad --email=squaad1993@gmail.com
+
+bors_a 89d22af751044d7f9531dee476a2ca9b
+LsdB74
+5112384
+
+topt ZON3P6GL43EPD7YG4UGCYYKJOJGISBV3
