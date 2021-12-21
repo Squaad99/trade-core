@@ -7,3 +7,4 @@ borsdata_sdk==1.0.0
 psycopg2==2.8.6
 avanza-api==2.10.0
 schedule==1.1.0
+djangorestframework==3.13.1
