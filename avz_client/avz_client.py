@@ -1,8 +1,7 @@
 import datetime
 import os
-from datetime import date
 
-from avanza import Avanza, OrderType
+from avanza import Avanza
 
 from w_trade.data.price_data import PriceData
 

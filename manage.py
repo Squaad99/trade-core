@@ -3,6 +3,8 @@
 import os
 import sys
 
+from event.lib.t_core_scheduler import TCoreScheduler
+
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'trade_core.settings')
@@ -14,6 +16,8 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+    t_scheduler = TCoreScheduler()
+    t_scheduler.start()
     execute_from_command_line(sys.argv)
 
 
