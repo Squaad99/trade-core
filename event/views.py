@@ -18,5 +18,9 @@ class EventStartView(LoginRequiredMixin, TemplateView):
 
         if command == "start-123" and self.request.user.is_authenticated:
             check_strategies_auto()
+        elif command == "test-123" and self.request.user.is_authenticated:
+            trade_suite_event = TradeSuiteEvent("Manual testing")
+            trade_suite_event.save()
+
 
         return context
