@@ -8,8 +8,6 @@
 
 # python manage.py createsuperuser --username=Squaad --email=squaad1993@gmail.com
 
-bors_a 89d22af751044d7f9531dee476a2ca9b
-LsdB74
-5112384
+heroku logs -t -a trade-core-app
 
-topt ZON3P6GL43EPD7YG4UGCYYKJOJGISBV3
+heroku logs -t -s app -a trade-core-app

@@ -7,11 +7,17 @@ import schedule
 import time
 
 from event.lib.constants import EventCodes
+from trade_core.settings import DEBUG
 
 
 class TCoreScheduler:
 
     def __init__(self):
+
+        self.port = "8080"
+        if DEBUG:
+            self.port= "8081"
+
         def test_job():
             payload = {
                 "event": EventCodes.TEST_NAME.value,
@@ -58,9 +64,8 @@ class TCoreScheduler:
         thread = threading.Thread(target=start_scheduler, args=[])
         thread.start()
 
-    @staticmethod
-    def _preform_api_call(payload):
+    def _preform_api_call(self, payload):
         try:
-            requests.post('http://localhost:8000/api/event-start/', data=payload)
+            requests.post('http://localhost:{}}/api/event-start/'.format(self.port), data=payload)
         except Exception as e:
             print(e)
