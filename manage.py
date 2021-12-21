@@ -18,6 +18,7 @@ def main():
         ) from exc
     t_scheduler = TCoreScheduler()
     args = sys.argv
+    print("Args: {}".format(args))
     if "runserver" in args:
         t_scheduler.start()
     execute_from_command_line(sys.argv)

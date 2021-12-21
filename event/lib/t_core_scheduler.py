@@ -48,6 +48,7 @@ class TCoreScheduler:
         schedule.every().friday.at("20:00").do(check_orders_and_transactions_job)
 
     def start(self):
+        print("Starting scheduler")
 
         def start_scheduler():
             while 1:

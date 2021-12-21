@@ -89,3 +89,6 @@ GitHub.sublime-settings
 .idea/*
 
 staticfiles/*
+
+.idea/misc.xml
+.idea/trade-core.iml
