@@ -87,3 +87,5 @@ GitHub.sublime-settings
 *.pyc
 
 .idea/*
+
+staticfiles/*
