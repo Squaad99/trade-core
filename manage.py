@@ -21,6 +21,8 @@ def main():
     print("Args: {}".format(args))
     if "runserver" in args:
         t_scheduler.start()
+    if "migrate" not in args:
+        print("Here123")
     execute_from_command_line(sys.argv)
 
 
