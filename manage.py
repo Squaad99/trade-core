@@ -17,7 +17,9 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     t_scheduler = TCoreScheduler()
-    t_scheduler.start()
+    args = sys.argv
+    if "runserver" in args:
+        t_scheduler.start()
     execute_from_command_line(sys.argv)
 
 
