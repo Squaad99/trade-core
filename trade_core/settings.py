@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'sv'
 
 TIME_ZONE = 'UTC'
 
@@ -135,3 +135,7 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'stock-list'
 
 LOGIN_URL = 'login'
+
+if 'HEROKU' in os.environ:
+    import django_heroku
+    django_heroku.settings(locals())
