@@ -39,7 +39,7 @@ class TCoreScheduler:
             }
             self._preform_api_call(payload)
 
-        schedule.every(10).seconds.do(test_job)
+        #schedule.every(10).seconds.do(test_job)
 
         schedule.every().monday.at("16:00").do(buy_and_sell_job)
         schedule.every().tuesday.at("16:00").do(buy_and_sell_job)
