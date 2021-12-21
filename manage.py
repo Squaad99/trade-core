@@ -18,7 +18,7 @@ def main():
         ) from exc
     t_scheduler = TCoreScheduler()
     args = sys.argv
-    if "migrate" not in args:
+    if "collectstatic" not in args and "makemigrations" not in args and "migrate" not in args:
         t_scheduler.start()
     execute_from_command_line(args)
 
