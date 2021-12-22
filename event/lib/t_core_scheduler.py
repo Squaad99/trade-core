@@ -16,7 +16,7 @@ class TCoreScheduler:
 
         self.port = "8000"
         if not DEBUG:
-            self.port = "11555"
+            self.port = "8080"
 
         def test_job():
             payload = {
