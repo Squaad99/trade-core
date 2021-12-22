@@ -18,12 +18,27 @@ urlpatterns = [
 class TCoreScheduler:
 
     def __init__(self):
-        def test_job():
-            time_zone = pytz.timezone('Europe/Stockholm')
-            trade_suite_event = TradeSuiteEvent(name="Manual testing", custom_date=str(datetime.now(time_zone)))
+        time_zone = pytz.timezone('Europe/Stockholm')
+
+        def buy_and_sell_job():
+            trade_suite_event = TradeSuiteEvent(name="Buy and sell", custom_date=str(datetime.now(time_zone)))
             trade_suite_event.save()
 
-        # schedule.every(10).seconds.do(test_job)
+        def check_orders_and_transactions_job():
+            trade_suite_event = TradeSuiteEvent(name="Check order and transactions", custom_date=str(datetime.now(time_zone)))
+            trade_suite_event.save()
+
+        schedule.every().monday.at("15:00").do(buy_and_sell_job)
+        schedule.every().tuesday.at("15:00").do(buy_and_sell_job)
+        schedule.every().wednesday.at("15:00").do(buy_and_sell_job)
+        schedule.every().thursday.at("15:00").do(buy_and_sell_job)
+        schedule.every().friday.at("15:00").do(buy_and_sell_job)
+
+        schedule.every().monday.at("19:00").do(check_orders_and_transactions_job)
+        schedule.every().tuesday.at("19:00").do(check_orders_and_transactions_job)
+        schedule.every().wednesday.at("19:00").do(check_orders_and_transactions_job)
+        schedule.every().thursday.at("19:00").do(check_orders_and_transactions_job)
+        schedule.every().friday.at("19:00").do(check_orders_and_transactions_job)
 
     def start(self):
         print("Starting scheduler")

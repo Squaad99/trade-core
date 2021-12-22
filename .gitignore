@@ -92,3 +92,5 @@ staticfiles/*
 
 .idea/misc.xml
 .idea/trade-core.iml
+
+db.sqlite3
