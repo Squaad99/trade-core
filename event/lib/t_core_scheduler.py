@@ -18,12 +18,7 @@ class TCoreScheduler:
         if not DEBUG:
             self.port = "8080"
 
-        def test_job():
-            payload = {
-                "event": EventCodes.TEST_NAME.value,
-                "code": "123"
-            }
-            self._preform_api_call(payload)
+
 
         def buy_and_sell_job():
             payload = {
@@ -39,7 +34,6 @@ class TCoreScheduler:
             }
             self._preform_api_call(payload)
 
-        schedule.every(10).seconds.do(test_job)
 
         schedule.every().monday.at("16:00").do(buy_and_sell_job)
         schedule.every().tuesday.at("16:00").do(buy_and_sell_job)

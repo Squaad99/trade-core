@@ -11,3 +11,5 @@
 heroku logs -t -a trade-core-app
 
 heroku logs -t -s app -a trade-core-app
+
+curl -d '{"event":"Test", "Code":"123"}' -H "Content-Type: application/json" -X POST https://trade-core-app.herokuapp.com/api/event-start/
