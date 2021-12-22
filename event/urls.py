@@ -23,7 +23,7 @@ class TCoreScheduler:
             trade_suite_event = TradeSuiteEvent(name="Manual testing", custom_date=str(datetime.now(time_zone)))
             trade_suite_event.save()
 
-        #schedule.every(10).seconds.do(test_job)
+        # schedule.every(10).seconds.do(test_job)
 
     def start(self):
         print("Starting scheduler")
@@ -35,6 +35,7 @@ class TCoreScheduler:
 
         thread = threading.Thread(target=start_scheduler, args=[])
         thread.start()
+
 
 args = sys.argv
 

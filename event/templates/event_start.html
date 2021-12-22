@@ -3,9 +3,21 @@
 <div style="padding: 1%;">
     <h1>Start event</h1>
 
-    <button type="button">
-        <a href="{% url 'event-start' 'start-123' %}">Start</a>
-    </button>
+    <h1>Trade events</h1>
+    <table class="list-table" style="margin-top: 25px;">
+    <tr>
+        <th>Namn</th>
+        <th>Stockholm tid</th>
+        <th>Scheduler tid</th>
+    </tr>
+    {% for event in events %}
+        <tr>
+            <td>{{ event.name }}</td>
+            <td>{{ event.custom_date }}</td>
+            <td>{{ event.created }}</td>
+        </tr>
+    {% endfor %}
+    </table>
 
 </div>
 {% endblock content %}
