@@ -1,3 +1,5 @@
+import sys
+
 import pytz
 from django.urls import path
 from event.models import TradeSuiteEvent
@@ -34,6 +36,8 @@ class TCoreScheduler:
         thread = threading.Thread(target=start_scheduler, args=[])
         thread.start()
 
+args = sys.argv
 
-s = TCoreScheduler()
-s.start()
+if "collectstatic" not in args and "makemigrations" not in args and "migrate" not in args:
+    s = TCoreScheduler()
+    s.start()
