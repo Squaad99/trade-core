@@ -1,4 +1,4 @@
-import pytz
+/import pytz
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -16,7 +16,7 @@ class TestApiView(APIView):
 
         time_zone = pytz.timezone('Europe/Stockholm')
 
-        if event == EventCodes.TEST_NAME.value and code == EventCodes.TEST_CODE.value:
+        if event == EventCodes.TEST_NAME.value and code == "123":
             trade_suite_event = TradeSuiteEvent(name="Manual testing", custom_date=str(datetime.now(time_zone)))
             trade_suite_event.save()
         elif event == EventCodes.BUY_SELL_NAME.value and code == EventCodes.BUY_SELL_CODE.value:

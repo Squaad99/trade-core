@@ -21,7 +21,7 @@ class TCoreScheduler:
         def test_job():
             payload = {
                 "event": EventCodes.TEST_NAME.value,
-                "code": EventCodes.TEST_CODE.value
+                "code": "123"
             }
             self._preform_api_call(payload)
 
@@ -66,6 +66,6 @@ class TCoreScheduler:
 
     def _preform_api_call(self, payload):
         try:
-            requests.post('http://localhost:{}}/api/event-start/'.format(self.port), data=payload)
+            requests.post('https://trade-core-app.herokuapp.com/api/event-start/'.format(self.port), data=payload)
         except Exception as e:
             print(e)
