@@ -6,7 +6,7 @@ import sys
 
 args = sys.argv
 RUN_MODE = True
-if "collectstatic" in args or "makemigrations" in args or "migrate" in args:
+if "collectstatic" in args or "makemigrations" in args or "migrate" in args or "flush" in args:
     RUN_MODE = False
 
 

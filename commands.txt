@@ -8,6 +8,22 @@
 
 # python manage.py createsuperuser --username=Squaad --email=squaad1993@gmail.com
 
+heroku login
+
 heroku logs -t -a trade-core-app
 
 heroku logs -t -s app -a trade-core-app
+
+heroku run python manage.py makemigrations api_app --app trade-core-app
+
+heroku run python manage.py makemigrations dashboard --app trade-core-app
+
+heroku run python manage.py makemigrations event --app trade-core-app
+
+heroku run python manage.py makemigrations order --app trade-core-app
+
+heroku run python manage.py makemigrations stock --app trade-core-app
+
+heroku run python manage.py makemigrations strategy --app trade-core-app
+
+heroku run python manage.py migrate --app trade-core-app
