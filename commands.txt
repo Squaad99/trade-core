@@ -14,6 +14,8 @@ heroku logs -t -a trade-core-app
 
 heroku logs -t -s app -a trade-core-app
 
+heroku run python manage.py flush --app trade-core-app
+
 heroku run python manage.py makemigrations api_app --app trade-core-app
 heroku run python manage.py migrate api_app --app trade-core-app
 
