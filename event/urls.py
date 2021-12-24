@@ -10,6 +10,8 @@ from datetime import datetime
 import schedule
 import time
 
+from manage import RUN_MODE
+
 urlpatterns = [
     path('start/<str:command>', EventStartView.as_view(), name='event-start'),
 ]
@@ -52,8 +54,6 @@ class TCoreScheduler:
         thread.start()
 
 
-args = sys.argv
-
-if "collectstatic" not in args and "makemigrations" not in args and "migrate" not in args:
+if RUN_MODE:
     s = TCoreScheduler()
     s.start()

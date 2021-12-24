@@ -4,6 +4,11 @@ import os
 import sys
 
 
+args = sys.argv
+RUN_MODE = True
+if "collectstatic" in args or "makemigrations" in args or "migrate" in args:
+    RUN_MODE = False
+
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'trade_core.settings')
