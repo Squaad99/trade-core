@@ -1,5 +1,3 @@
-import sys
-
 import pytz
 from django.urls import path
 from event.models import TradeSuiteEvent
