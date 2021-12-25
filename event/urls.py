@@ -20,6 +20,10 @@ class TCoreScheduler:
     def __init__(self):
         time_zone = pytz.timezone('Europe/Stockholm')
 
+        def test_job():
+            trade_suite_event = TradeSuiteEvent(name="Test check", custom_date=str(datetime.now(time_zone)))
+            trade_suite_event.save()
+
         def health_check_job():
             trade_suite_event = TradeSuiteEvent(name="Health check", custom_date=str(datetime.now(time_zone)))
             trade_suite_event.save()
@@ -32,6 +36,8 @@ class TCoreScheduler:
         def check_orders_and_transactions_job():
             trade_suite_event = TradeSuiteEvent(name="Check order and transactions", custom_date=str(datetime.now(time_zone)))
             trade_suite_event.save()
+
+        schedule.every().minute.do(test_job)
 
         schedule.every().day.at("11:00").do(health_check_job)
 
