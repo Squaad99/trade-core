@@ -96,7 +96,7 @@ DATABASES_AVAILABLE = {
     }
 }
 
-database = "postgres"
+database = "default"
 if 'HEROKU' in os.environ:
     database = "postgres"
 
