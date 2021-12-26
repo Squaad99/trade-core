@@ -81,11 +81,27 @@ WSGI_APPLICATION = 'trade_core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
+DATABASES_AVAILABLE = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'postgres': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd156fk5blql9jk',
+        'USER': 'dprtljaockuqbz',
+        'PASSWORD': '359f8cd059ed6d929c567509942b77c5ddf54953ccd521876ec2059060a25f80',
+        'HOST': 'ec2-34-249-148-230.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
     }
+}
+
+database = "postgres"
+if 'HEROKU' in os.environ:
+    database = "postgres"
+
+DATABASES = {
+    'default': DATABASES_AVAILABLE[database]
 }
 
 
