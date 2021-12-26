@@ -28,13 +28,13 @@ class TCoreScheduler:
             trade_suite_event = TradeSuiteEvent(name="Health check", custom_date=str(datetime.now(time_zone)))
             trade_suite_event.save()
 
-
         def buy_and_sell_job():
             trade_suite_event = TradeSuiteEvent(name="Buy and sell", custom_date=str(datetime.now(time_zone)))
             trade_suite_event.save()
 
         def check_orders_and_transactions_job():
-            trade_suite_event = TradeSuiteEvent(name="Check order and transactions", custom_date=str(datetime.now(time_zone)))
+            trade_suite_event = TradeSuiteEvent(name="Check order and transactions",
+                                                custom_date=str(datetime.now(time_zone)))
             trade_suite_event.save()
 
         # schedule.every().minute.do(test_job)
@@ -53,13 +53,14 @@ class TCoreScheduler:
         schedule.every().thursday.at("19:00").do(check_orders_and_transactions_job)
         schedule.every().friday.at("19:00").do(check_orders_and_transactions_job)
 
-    def start(self):
+    @staticmethod
+    def start():
         print("Starting scheduler")
 
         def start_scheduler():
             while 1:
                 schedule.run_pending()
-                time.sleep(1)
+                time.sleep(45)
 
         thread = threading.Thread(target=start_scheduler, args=[])
         thread.start()
