@@ -7,7 +7,6 @@ args = sys.argv
 RUN_MODE = True
 if "collectstatic" in args or "makemigrations" in args or "migrate" in args or "flush" in args or "createsuperuser" in args:
     RUN_MODE = False
-
 if os.path.isfile('scheduler.txt'):
     os.remove("scheduler.txt")
 
@@ -23,6 +22,7 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     print("Run mode: {}".format(str(RUN_MODE)))
+    args.append("--noreload")
     execute_from_command_line(args)
 
 
