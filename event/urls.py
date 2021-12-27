@@ -82,5 +82,6 @@ class TCoreScheduler(object):
         thread = threading.Thread(target=start_scheduler, args=[])
         thread.start()
 
-scheduler = TCoreScheduler()
 
+if RUN_MODE:
+    scheduler = TCoreScheduler()
