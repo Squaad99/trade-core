@@ -8,7 +8,7 @@ from datetime import datetime
 import schedule
 import time
 
-from manage import RUN_MODE, SCHEDULER_RUNNING
+from manage import RUN_MODE
 
 urlpatterns = [
     path('start/<str:command>', EventStartView.as_view(), name='event-start'),
@@ -56,23 +56,16 @@ class TCoreScheduler(object):
 
         self._start()
 
-    @staticmethod
-    def _get_global_var():
-        return SCHEDULER_RUNNING
-
-    @staticmethod
-    def _set_global_var(value):
-        global SCHEDULER_RUNNING
-        SCHEDULER_RUNNING = value
 
     def _start(self):
-        if self._get_global_var():
+        if 'SCHEDULER_RUNNING' in globals():
             return
+        global SCHEDULER_RUNNING
+
 
         print("Starting scheduler")
         time_zone = pytz.timezone('Europe/Stockholm')
         print(str(datetime.now(time_zone)))
-        self._set_global_var(True)
 
         def start_scheduler():
             while True:
