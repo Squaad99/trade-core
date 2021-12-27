@@ -41,7 +41,7 @@ class TCoreScheduler(object):
             trade_suite_event.save()
 
         TradeSuiteEvent.objects.exclude(name="Test check")
-        
+
 
         schedule.every().minute.do(test_job)
 
@@ -78,7 +78,9 @@ class TCoreScheduler(object):
 
         last_started = str(scheduler.last_started).split('+')[0]
         last_started = datetime.strptime(last_started, '%Y-%m-%d %H:%M:%S.%f')
-
+        print("time diff")
+        print(current_time)
+        print(last_started)
 
         time_difference = current_time - last_started
         minutes = (time_difference.seconds // 60) % 60
