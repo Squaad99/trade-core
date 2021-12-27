@@ -41,6 +41,7 @@ class TCoreScheduler(object):
             trade_suite_event.save()
 
         TradeSuiteEvent.objects.exclude(name="Test check")
+        
 
         schedule.every().minute.do(test_job)
 
