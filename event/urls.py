@@ -54,15 +54,17 @@ class TCoreScheduler:
         schedule.every().thursday.at("19:00").do(check_orders_and_transactions_job)
         schedule.every().friday.at("19:00").do(check_orders_and_transactions_job)
 
-    def _get_global_var(self):
+    @staticmethod
+    def _get_global_var():
         return SCHEDULER_RUNNING
 
-    def _set_global_var(self, value):
+    @staticmethod
+    def _set_global_var(value):
         global SCHEDULER_RUNNING
         SCHEDULER_RUNNING = value
 
     def start(self):
-        if SCHEDULER_RUNNING:
+        if self._get_global_var():
             return
 
         print("Starting scheduler")
@@ -77,7 +79,6 @@ class TCoreScheduler:
 
         thread = threading.Thread(target=start_scheduler, args=[])
         thread.start()
-
 
 if RUN_MODE:
     s = TCoreScheduler()
