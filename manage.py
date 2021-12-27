@@ -22,7 +22,8 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     print("Run mode: {}".format(str(RUN_MODE)))
-    args.append("--noreload")
+    if "runserver" in args:
+        args.append("--noreload")
     execute_from_command_line(args)
 
 
