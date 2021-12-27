@@ -1,3 +1,5 @@
+import os
+
 import pytz
 from django.urls import path
 from event.models import TradeSuiteEvent
@@ -58,9 +60,11 @@ class TCoreScheduler(object):
 
 
     def _start(self):
-        if 'SCHEDULER_RUNNING' in globals():
+        result = os.environ.get('SCHEDULER_RUNNING')
+        if result is None:
+            os.environ["SCHEDULER_RUNNING"] = "True"
+        else:
             return
-        global SCHEDULER_RUNNING
 
 
         print("Starting scheduler")
