@@ -2,7 +2,7 @@ import os
 
 import pytz
 from django.urls import path
-from event.models import TradeSuiteEvent
+from event.models import TradeSuiteEvent, Scheduler
 from event.views import EventStartView
 import threading
 from datetime import datetime
@@ -21,23 +21,23 @@ class TCoreScheduler(object):
 
     def __init__(self):
         self.running = False
-        time_zone = pytz.timezone('Europe/Stockholm')
+        self.time_zone = pytz.timezone('Europe/Stockholm')
 
         def test_job():
-            trade_suite_event = TradeSuiteEvent(name="Test check", custom_date=str(datetime.now(time_zone)))
+            trade_suite_event = TradeSuiteEvent(name="Test check", custom_date=str(datetime.now(self.time_zone)))
             trade_suite_event.save()
 
         def health_check_job():
-            trade_suite_event = TradeSuiteEvent(name="Health check", custom_date=str(datetime.now(time_zone)))
+            trade_suite_event = TradeSuiteEvent(name="Health check", custom_date=str(datetime.now(self.time_zone)))
             trade_suite_event.save()
 
         def buy_and_sell_job():
-            trade_suite_event = TradeSuiteEvent(name="Buy and sell", custom_date=str(datetime.now(time_zone)))
+            trade_suite_event = TradeSuiteEvent(name="Buy and sell", custom_date=str(datetime.now(self.time_zone)))
             trade_suite_event.save()
 
         def check_orders_and_transactions_job():
             trade_suite_event = TradeSuiteEvent(name="Check order and transactions",
-                                                custom_date=str(datetime.now(time_zone)))
+                                                custom_date=str(datetime.now(self.time_zone)))
             trade_suite_event.save()
 
         # schedule.every().minute.do(test_job)
@@ -58,19 +58,38 @@ class TCoreScheduler(object):
 
         self._start()
 
-
     def _start(self):
-        result = os.path.isfile('scheduler.txt')
+        scheduler_list = Scheduler.objects.filter(name="Scheduler status")
 
-        if not result:
-            open(os.path.join('scheduler.txt'), 'w')
-        else:
+        if not scheduler_list:
+            started = datetime.now(self.time_zone)
+            new_scheduler = Scheduler(last_started=started)
+            new_scheduler.save()
+            time.sleep(1)
+
+        scheduler = Scheduler.objects.get(name="Scheduler status")
+
+        current_time = datetime.now(self.time_zone)
+        current_time = str(current_time).split('+')[0]
+        current_time = datetime.strptime(current_time, '%Y-%m-%d %H:%M:%S.%f')
+
+        last_started = str(scheduler.last_started).split('+')[0]
+        last_started = datetime.strptime(last_started, '%Y-%m-%d %H:%M:%S.%f')
+
+
+        time_difference = current_time - last_started
+        minutes = (time_difference.seconds // 60) % 60
+
+        if minutes < 5:
             return
+
+        scheduler.last_started = datetime.now(self.time_zone)
+        scheduler.save()
+
 
 
         print("Starting scheduler")
-        time_zone = pytz.timezone('Europe/Stockholm')
-        print(str(datetime.now(time_zone)))
+        print(str(datetime.now(self.time_zone)))
 
         def start_scheduler():
             while True:

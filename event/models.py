@@ -11,3 +11,8 @@ class TradeSuiteEvent(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Scheduler(models.Model):
+    name = models.CharField(max_length=30, default="Scheduler status")
+    last_started = models.CharField(max_length=50)
