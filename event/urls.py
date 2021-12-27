@@ -60,9 +60,10 @@ class TCoreScheduler(object):
 
 
     def _start(self):
-        result = os.environ.get('SCHEDULER_RUNNING')
-        if result is None:
-            os.environ["SCHEDULER_RUNNING"] = "True"
+        result = os.path.isfile('scheduler.txt')
+
+        if not result:
+            open(os.path.join('scheduler.txt'), 'w')
         else:
             return
 

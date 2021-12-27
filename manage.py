@@ -8,8 +8,8 @@ RUN_MODE = True
 if "collectstatic" in args or "makemigrations" in args or "migrate" in args or "flush" in args or "createsuperuser" in args:
     RUN_MODE = False
 
-
-
+if os.path.isfile('scheduler.txt'):
+    os.remove("scheduler.txt")
 
 
 def main():
