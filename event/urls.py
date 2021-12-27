@@ -37,9 +37,9 @@ class TCoreScheduler:
                                                 custom_date=str(datetime.now(time_zone)))
             trade_suite_event.save()
 
-        # schedule.every().minute.do(test_job)
+        schedule.every().minute.do(test_job)
 
-        schedule.every().day.at("11:00").do(health_check_job)
+        schedule.every().day.at("12:00").do(health_check_job)
 
         schedule.every().monday.at("15:00").do(buy_and_sell_job)
         schedule.every().tuesday.at("15:00").do(buy_and_sell_job)
@@ -58,9 +58,9 @@ class TCoreScheduler:
         print("Starting scheduler")
 
         def start_scheduler():
-            while 1:
+            while True:
                 schedule.run_pending()
-                time.sleep(45)
+                time.sleep(1)
 
         thread = threading.Thread(target=start_scheduler, args=[])
         thread.start()
