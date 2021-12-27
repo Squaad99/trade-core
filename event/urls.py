@@ -18,6 +18,7 @@ urlpatterns = [
 class TCoreScheduler:
 
     def __init__(self):
+        self.running = False
         time_zone = pytz.timezone('Europe/Stockholm')
 
         def test_job():
@@ -37,7 +38,7 @@ class TCoreScheduler:
                                                 custom_date=str(datetime.now(time_zone)))
             trade_suite_event.save()
 
-        schedule.every().minute.do(test_job)
+        #schedule.every().minute.do(test_job)
 
         schedule.every().day.at("12:00").do(health_check_job)
 
@@ -53,8 +54,10 @@ class TCoreScheduler:
         schedule.every().thursday.at("19:00").do(check_orders_and_transactions_job)
         schedule.every().friday.at("19:00").do(check_orders_and_transactions_job)
 
-    @staticmethod
-    def start():
+    def start(self):
+        if self.running:
+            return
+
         print("Starting scheduler")
 
         def start_scheduler():
