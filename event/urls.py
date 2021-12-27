@@ -82,7 +82,7 @@ class TCoreScheduler(object):
         time_difference = current_time - last_started
         minutes = (time_difference.seconds // 60) % 60
 
-        if minutes < 5:
+        if minutes < 2:
             return
 
         scheduler.last_started = datetime.now(self.time_zone)
