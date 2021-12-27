@@ -6,6 +6,7 @@ import sys
 
 args = sys.argv
 RUN_MODE = True
+SCHEDULER_RUNNING = False
 if "collectstatic" in args or "makemigrations" in args or "migrate" in args or "flush" in args or "createsuperuser" in args:
     RUN_MODE = False
 
