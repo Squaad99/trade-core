@@ -59,6 +59,8 @@ class TCoreScheduler:
             return
 
         print("Starting scheduler")
+        time_zone = pytz.timezone('Europe/Stockholm')
+        print(str(datetime.now(time_zone)))
 
         def start_scheduler():
             while True:
