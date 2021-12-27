@@ -38,7 +38,7 @@ class TCoreScheduler:
                                                 custom_date=str(datetime.now(time_zone)))
             trade_suite_event.save()
 
-        #schedule.every().minute.do(test_job)
+        schedule.every().minute.do(test_job)
 
         schedule.every().day.at("12:00").do(health_check_job)
 
