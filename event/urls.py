@@ -62,6 +62,7 @@ class TCoreScheduler(object):
         self._start()
 
     def _start(self):
+        print("Running start")
         scheduler_list = Scheduler.objects.filter(name="Scheduler status")
 
         if not scheduler_list:
