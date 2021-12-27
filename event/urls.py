@@ -15,7 +15,7 @@ urlpatterns = [
 ]
 
 
-class TCoreScheduler:
+class TCoreScheduler(object):
 
     def __init__(self):
         self.running = False
@@ -54,6 +54,8 @@ class TCoreScheduler:
         schedule.every().thursday.at("19:00").do(check_orders_and_transactions_job)
         schedule.every().friday.at("19:00").do(check_orders_and_transactions_job)
 
+        self._start()
+
     @staticmethod
     def _get_global_var():
         return SCHEDULER_RUNNING
@@ -63,7 +65,7 @@ class TCoreScheduler:
         global SCHEDULER_RUNNING
         SCHEDULER_RUNNING = value
 
-    def start(self):
+    def _start(self):
         if self._get_global_var():
             return
 
@@ -80,6 +82,5 @@ class TCoreScheduler:
         thread = threading.Thread(target=start_scheduler, args=[])
         thread.start()
 
-if RUN_MODE:
-    s = TCoreScheduler()
-    s.start()
+scheduler = TCoreScheduler()
+

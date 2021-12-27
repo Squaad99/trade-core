@@ -3,7 +3,6 @@
 import os
 import sys
 
-
 args = sys.argv
 RUN_MODE = True
 SCHEDULER_RUNNING = False
@@ -22,6 +21,8 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     print("Run mode: {}".format(str(RUN_MODE)))
+    #scheduler = TCoreScheduler()
+
     execute_from_command_line(args)
 
 
