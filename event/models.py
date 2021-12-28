@@ -16,3 +16,10 @@ class TradeSuiteEvent(models.Model):
 class Scheduler(models.Model):
     name = models.CharField(max_length=30, default="Scheduler status")
     last_started = models.CharField(max_length=50)
+
+
+
+class TCoreScheduler(models.Model):
+    name = models.CharField(max_length=30, default="T Scheduler status")
+    scheduler_code = models.CharField(max_length=30)
+    last_updated = models.CharField(max_length=50)
