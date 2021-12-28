@@ -96,7 +96,10 @@ class TCoreScheduler(object):
         def start_scheduler():
             while True:
                 schedule.run_pending()
-                time.sleep(1)
+                time.sleep(10)
+                active_scheduler = Scheduler(last_started=started)
+                active_scheduler.last_started = datetime.now(self.time_zone)
+                active_scheduler.save()
 
         thread = threading.Thread(target=start_scheduler, args=[])
         thread.start()
