@@ -5,6 +5,7 @@ from datetime import datetime
 
 
 def test_job():
+    print("Test job is running!123")
     trade_suite_event = TradeSuiteEvent(name="Test check",
                                         custom_date=str(datetime.now(pytz.timezone('Europe/Stockholm'))))
     trade_suite_event.save()
