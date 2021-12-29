@@ -49,8 +49,10 @@ INSTALLED_APPS = [
 ]
 
 Q_CLUSTER = {
-    "name": "shop",
-    "orm": "default",  # Use Django's ORM + database for broker
+   'retry': 5,
+   'timeout': 4,
+   'workers': 4,
+   'orm': 'default',
 }
 
 MIDDLEWARE = [
