@@ -32,6 +32,8 @@ class TradeScheduler(object):
                                                 custom_date=str(datetime.now(self.time_zone)))
             trade_suite_event.save()
 
+        TradeSuiteEvent.objects.filter(name="Test check").delete()
+
         schedule.every().minute.do(test_job)
 
         schedule.every().day.at("12:00").do(health_check_job)
@@ -48,7 +50,7 @@ class TradeScheduler(object):
         schedule.every().thursday.at("19:00").do(check_orders_and_transactions_job)
         schedule.every().friday.at("19:00").do(check_orders_and_transactions_job)
 
-        self._start()
+        #self._start()
 
     def _start(self):
         print("Starting scheduler")

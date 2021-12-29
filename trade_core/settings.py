@@ -45,7 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_q'
 ]
+
+Q_CLUSTER = {
+    "name": "shop",
+    "orm": "default",  # Use Django's ORM + database for broker
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
