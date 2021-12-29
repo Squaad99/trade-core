@@ -4,7 +4,6 @@ from order.lib.constants import Transactions
 
 
 class BuyTransaction(models.Model):
-    status = models.CharField(max_length=30, default=Transactions.ACTIVE)
     price = models.FloatField()
     amount = models.FloatField()
     order_id = models.CharField(max_length=30, blank=True)
@@ -14,11 +13,8 @@ class BuyTransaction(models.Model):
 
 
 class SellTransaction(models.Model):
-    status = models.CharField(max_length=30, default=Transactions.ACTIVE)
-    price = models.FloatField(default=None, blank=True)
+    price = models.FloatField()
     amount = models.FloatField()
-    take_profit = models.FloatField()
-    stop_loss = models.FloatField()
     order_id = models.CharField(max_length=30, blank=True)
     stop_loss_id = models.CharField(max_length=30, blank=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -30,8 +26,8 @@ class Order(models.Model):
     asset_ticker = models.CharField(max_length=30)
     completed = models.DateTimeField(auto_now_add=True)
     production = models.BooleanField(default=False)
-    buy_transaction = BuyTransaction()
-    buy_transaction = models.ForeignKey(BuyTransaction, on_delete=models.CASCADE)
+    buy_transaction = models.ForeignKey(BuyTransaction, on_delete=models.CASCADE, blank=True)
+    sell_transaction = models.ForeignKey(SellTransaction, on_delete=models.CASCADE, blank=True)
     last_updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

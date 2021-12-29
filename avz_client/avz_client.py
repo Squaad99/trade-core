@@ -1,8 +1,11 @@
 import datetime
 import os
 
-from avanza import Avanza
+from avanza import Avanza, OrderType
+from datetime import date
 
+from order.lib.constants import Transactions
+from order.models import Order, BuyTransaction
 from w_trade.data.price_data import PriceData
 
 
@@ -41,35 +44,51 @@ class AvzClient:
         account_overview = self.client.get_account_overview(self.trade_account_id)
         return account_overview['totalBalance']
 
-    def buy_stock_market_price(self, ticker, amount_sek):
+    def buy_stock_market_price(self, ticker, amount_sek, production):
         stock_id = self.get_stock_id(ticker)
         info = self.client.get_stock_info(stock_id)
         sell_price = info['sellPrice']
         amount = int(amount_sek / sell_price)
 
-        # result = self.client.place_order(
-        #     account_id=self.trade_account_id,
-        #     order_book_id=stock_id,
-        #     order_type=OrderType.BUY,
-        #     price=sell_price,
-        #     valid_until=date.today(),
-        #     volume=amount
-        # )
-        #
-        # if result['status'] == "SUCCESS":
-        #     print("dd")
+        if production and not self.client.check_available_balance(amount):
+            print("Insufficient balance.")
+            return
+        if production and not self.client.check_if_position_or_order_exist(ticker):
+            print("Position or order exists for: {}.".format(ticker))
+            return
 
+        if production:
+            response = self.client.place_order(
+                account_id=self.trade_account_id,
+                order_book_id=stock_id,
+                order_type=OrderType.BUY,
+                price=sell_price,
+                valid_until=date.today(),
+                volume=amount
+            )
 
-        # response = {'status': 'SUCCESS', 'messages': [''], 'requestId': '-1', 'orderId': '396285491'}
+            # response = {'status': 'SUCCESS', 'messages': [''], 'requestId': '-1', 'orderId': '396285491'}
 
-        response = {'status': 'SUCCESS', 'messages': [''], 'orderId': '397233009', 'requestId': '-1'}
+            order_id = response['orderId']
+            deals_and_orders = self.client.get_deals_and_orders()
+            for deal in deals_and_orders['deals']:
+                if order_id == deal['orderId']:
+                    price = deal['price']
+                    volume = deal['volume']
 
-        order_id = response['orderId']
-        deals_and_orders = self.client.get_deals_and_orders()
-        for deal in deals_and_orders['deals']:
-            if order_id == deal['orderId']:
-                price = deal['price']
-                volume = deal['volume']
+            buy_transaction = BuyTransaction(staus=Transactions.COMPLETED,
+                                             price=price,
+                                             amount=volume,
+                                             order_id=order_id)
+            buy_transaction.save()
+
+        else:
+            buy_transaction = BuyTransaction(staus=Transactions.COMPLETED,
+                                             price=sell_price,
+                                             amount=amount)
+            buy_transaction.save()
+
+        return buy_transaction
 
     def get_order(self, order_id):
         dd = self.client.get_deals_and_orders()

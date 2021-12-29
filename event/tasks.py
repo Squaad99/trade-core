@@ -2,6 +2,7 @@ import pytz
 
 from datetime import datetime
 
+from event.lib.events import buy_and_place_orders
 from event.models import TradeSuiteEvent
 
 
@@ -21,6 +22,8 @@ def test_job():
                                         time_started=now_time,
                                         time_completed=now_time,
                                         custom_full=now_full)
+
+
     trade_suite_event.save()
 
 
@@ -61,6 +64,19 @@ def buy_and_place_orders_job():
                                         time_completed=now_time,
                                         custom_full=now_full)
     trade_suite_event.save()
+
+    result = "success"
+    try:
+        buy_and_place_orders(trade_suite_event)
+    except Exception as e:
+        result = "failure"
+
+
+    done_datetime = datetime.now(pytz.timezone('Europe/Stockholm'))
+    done_time = done_datetime.strftime("%H:%M")
+    trade_suite_event.time_completed = done_time
+    trade_suite_event.save()
+
 
 
 def check_transactions_and_orders_job():
