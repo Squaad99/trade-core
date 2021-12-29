@@ -1,19 +1,24 @@
 {% extends "dashboard.html" %}
 {% block content %}
 <div style="padding: 1%;">
-    <h1>Start event</h1>
 
     <h1>Trade events</h1>
     <table class="list-table" style="margin-top: 25px;">
     <tr>
         <th>Namn</th>
         <th>Stockholm tid</th>
-        <th>Scheduler tid</th>
+        <th>Date</th>
+        <th>Tid start</th>
+        <th>Tid klart</th>
+        <th>Created</th>
     </tr>
     {% for event in events %}
         <tr>
             <td>{{ event.name }}</td>
-            <td>{{ event.custom_date }}</td>
+            <td>{{ event.custom_full }}</td>
+            <td>{{ event.date }}</td>
+            <td>{{ event.time_started }}</td>
+            <td>{{ event.time_completed }}</td>
             <td>{{ event.created }}</td>
         </tr>
     {% endfor %}

@@ -1,6 +1,5 @@
 from django.urls import path
 
-from borsdata.STOCK_CONFIG import STOCK_LIST
 from borsdata.borsdata_client import BorsdataClient
 from manage import RUN_MODE
 from stock.models import Stock

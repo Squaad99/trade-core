@@ -1,12 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
-from event.lib.t_core_scheduler import TradeScheduler
 from event.models import TradeSuiteEvent
 
 
 class EventListView(LoginRequiredMixin, TemplateView):
-    template_name = "event_start.html"
+    template_name = "event_list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -19,6 +18,6 @@ class SchedulerStartView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        trade_scheduler = TradeScheduler()
+        TradeSuiteEvent.objects.filter(name="Test check").delete()
         return context
 
