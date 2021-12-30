@@ -9,7 +9,7 @@ import pytz
 from datetime import datetime
 
 
-def buy_and_place_orders(avz_client: AvzClient, trade_suit_event: TradeSuiteEvent, test_mode=False):
+def buy_and_place_orders(avz_client: AvzClient, test_mode=False):
     if not avz_client.is_market_open():
         return
 

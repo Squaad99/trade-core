@@ -30,12 +30,6 @@ class TestBuyAndSellView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        trade_suite_event = TradeSuiteEvent.objects.create(name="Test Buy Sell",
-                                                           custom_full="2021-12-29 16:00:16.603536+01:00",
-                                                           date="2021-12-29",
-                                                           time_started="16:00",
-                                                           time_completed="16:00")
-
         avz_client = AvzClient()
-        buy_and_place_orders(avz_client, trade_suite_event, True)
+        buy_and_place_orders(avz_client, True)
         return context
