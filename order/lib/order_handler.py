@@ -20,7 +20,6 @@ def place_market_order_stop_loss_and_sell(ticker, avz_client: AvzClient, strateg
 
     order = Order(
         asset_ticker=ticker,
-        completed=False,
         strategy=strategy,
         production=strategy.production,
         buy_transaction=buy_transaction,
