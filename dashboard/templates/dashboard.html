@@ -14,8 +14,9 @@
         <ul id="navbar">
             <li class="menuItem"><a href="{% url 'stock-list' %}">Aktier</a></li>
             <li class="menuItem"><a href="{% url 'event-list' 'check' %}">Trade events</a></li>
-            <li class="menuItem"><a href="{% url 'test-buy-and-sell' %}">Test buy and sell</a></li>
+            <li class="menuItem"><a href="{% url 'test-events' 'check' %}">Test events</a></li>
             <li class="menuItem"><a href="{% url 'order-list' %}">Order list</a></li>
+            <li class="menuItem"><a href="{% url 'buy-transaction-list' %}">Buy transactions</a></li>
             <li class="menuItem"><a href="{% url 'strategy-list' %}">Strategy list</a></li>
             <li class="menuItem" style="float: right;"><a href="{% url 'logout' %}">Logga ut</a></li>
         </ul>

@@ -6,7 +6,7 @@ from strategy.models import StockStrategy
 class BuyTransaction(models.Model):
     price = models.FloatField()
     amount = models.FloatField()
-    order_id = models.CharField(max_length=30, blank=True)
+    order_id = models.CharField(max_length=30, blank=True, default="")
     created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 

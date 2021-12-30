@@ -47,7 +47,9 @@ class AvzClient:
     def buy_stock_market_price(self, ticker, production, test_mode=False):
         stock_id = self.get_stock_id(ticker)
         info = self.client.get_stock_info(stock_id)
-        sell_price = info['sellPrice']
+        sell_price = info.get('sellPrice', None)
+        if sell_price is None:
+            sell_price = info['lastPrice']
         amount = int(TradeSettings.TRADE_AMOUNT.value / sell_price)
 
         if production and not self.client.check_available_balance(amount):
@@ -79,14 +81,12 @@ class AvzClient:
             buy_transaction = BuyTransaction(price=price,
                                              amount=volume,
                                              order_id=order_id)
-            if not test_mode:
-                buy_transaction.save()
+            buy_transaction.save()
 
         else:
             buy_transaction = BuyTransaction(price=sell_price,
                                              amount=amount)
-            if not test_mode:
-                buy_transaction.save()
+            buy_transaction.save()
 
         return buy_transaction
 

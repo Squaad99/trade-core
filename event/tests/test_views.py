@@ -24,6 +24,6 @@ class BuyAndSellTest(TestCase):
     def test_start_complete_test(self):
         avz_client = MagicMock()
 
-        buy_and_place_orders(avz_client, self.trade_suite_event)
+        buy_and_place_orders(avz_client)
 
         print("dd")

@@ -1,10 +1,7 @@
 from django.urls import path
-from django_q.models import Schedule
-
-from event.views import EventListView, SchedulerStartView, TestBuyAndSellView
-from manage import RUN_MODE
-from order.views import OrderListView
+from order.views import OrderListView, BuyTransactionsListView
 
 urlpatterns = [
     path('order-list/', OrderListView.as_view(), name='order-list'),
+    path('buy-transaction-list/', BuyTransactionsListView.as_view(), name='buy-transaction-list'),
 ]

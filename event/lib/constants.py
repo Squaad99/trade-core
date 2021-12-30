@@ -11,3 +11,9 @@ class EventCodes(enum.Enum):
 
     CHECK_TRADES_NAME = "Check-Trades"
     CHECK_TRADES_CODE = secrets.token_urlsafe(13)
+
+
+class OrderEnum(enum.Enum):
+    ORDER_ONGOING = "ONGOING"
+    ORDER_COMPLETED = "COMPLETED"
+

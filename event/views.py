@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import pytz
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
@@ -28,12 +29,40 @@ class SchedulerStartView(LoginRequiredMixin, TemplateView):
         return context
 
 
-
-class TestBuyAndSellView(LoginRequiredMixin, TemplateView):
-    template_name = "test_buy_sell.html"
+class TestEventsView(LoginRequiredMixin, TemplateView):
+    template_name = "test_events.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        avz_client = AvzClient()
-        buy_and_place_orders(avz_client, False)
+        command = context['command']
+
+        if command == "buy-and-sell":
+            now_datetime = datetime.now(pytz.timezone('Europe/Stockholm'))
+            now_full = str(now_datetime)
+            now_date = now_datetime.strftime("%Y-%m-%d")
+            now_time = now_datetime.strftime("%H:%M")
+
+            trade_suite_event = TradeSuiteEvent(name="Test Buy and Sell",
+                                                date=now_date,
+                                                time_started=now_time,
+                                                time_completed=now_time,
+                                                custom_full=now_full)
+
+            result = "success"
+            exception = ""
+            try:
+                avz_client = AvzClient()
+                buy_and_place_orders(avz_client, trade_suite_event, True)
+            except Exception as error:
+                result = "failure"
+                exception = str(error)
+
+            done_datetime = datetime.now(pytz.timezone('Europe/Stockholm'))
+            done_time = done_datetime.strftime("%H:%M")
+            trade_suite_event.time_completed = done_time
+            trade_suite_event.result = result
+            trade_suite_event.error = exception
+            trade_suite_event.save()
+        elif command == "remove-buy-and-sell":
+            TradeSuiteEvent.objects.filter(name="Test Buy and Sell").delete()
         return context

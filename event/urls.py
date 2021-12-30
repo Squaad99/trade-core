@@ -1,14 +1,12 @@
 from django.urls import path
 from django_q.models import Schedule
 
-from event.views import EventListView, SchedulerStartView, TestBuyAndSellView
+from event.views import EventListView, SchedulerStartView, TestEventsView
 from manage import RUN_MODE
 
 urlpatterns = [
     path('start/<str:command>', EventListView.as_view(), name='event-list'),
-    path('scheduler-start/<str:command>', SchedulerStartView.as_view(), name='scheduler-start'),
-
-    path('test-buy-and-sell/', TestBuyAndSellView.as_view(), name='test-buy-and-sell'),
+    path('test-buy-and-sell/<str:command>', TestEventsView.as_view(), name='test-events'),
 ]
 
 if RUN_MODE:

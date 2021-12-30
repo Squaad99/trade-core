@@ -1,0 +1,10 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<div style="padding: 1%;">
+    <h1>Test Buy sell</h1>
+
+    <a href="{% url 'test-events' 'buy-and-sell' %}">Test buy and sell</a>
+    <a href="{% url 'test-events' 'remove-buy-and-sell' %}">Remove all buy and sell</a>
+
+</div>
+{% endblock content %}

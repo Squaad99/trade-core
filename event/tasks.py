@@ -1,7 +1,5 @@
 import pytz
-
 from datetime import datetime
-
 from avz_client.avz_client import AvzClient
 from event.lib.events import buy_and_place_orders
 from event.models import TradeSuiteEvent
@@ -24,7 +22,6 @@ def test_job():
                                         time_completed=now_time,
                                         custom_full=now_full)
 
-
     trade_suite_event.save()
 
 
@@ -45,7 +42,6 @@ def health_check_job():
                                         time_completed=now_time,
                                         custom_full=now_full)
     trade_suite_event.save()
-
 
 
 def buy_and_place_orders_job():
@@ -81,7 +77,6 @@ def buy_and_place_orders_job():
     trade_suite_event.result = result
     trade_suite_event.error = exception
     trade_suite_event.save()
-
 
 
 def check_transactions_and_orders_job():

@@ -8,6 +8,9 @@
         <th>Namn</th>
         <th>Stockholm tid</th>
         <th>Date</th>
+        <th>Resultat</th>
+        <th>Antal aktier</th>
+        <th>Antal orders</th>
         <th>Tid start</th>
         <th>Tid klart</th>
         <th>Created</th>
@@ -17,10 +20,18 @@
             <td>{{ event.name }}</td>
             <td>{{ event.custom_full }}</td>
             <td>{{ event.date }}</td>
+            <td>{{ event.result }}</td>
+            <td>{{ event.number_of_stocks }}</td>
+            <td>{{ event.number_of_trades }}</td>
             <td>{{ event.time_started }}</td>
             <td>{{ event.time_completed }}</td>
             <td>{{ event.created }}</td>
         </tr>
+        {% if event.result == "failure" %}
+        <tr>
+            <td colspan="7">Error: {{ event.error }}</td>
+        </tr>
+        {% endif %}
     {% endfor %}
     </table>
 

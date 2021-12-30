@@ -1,0 +1,26 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<div style="padding: 1%;">
+
+    <h1>Buy transaction list</h1>
+    <table class="list-table" style="margin-top: 25px;">
+    <tr>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Order id</th>
+        <th>Created</th>
+        <th>Last updated</th>
+    </tr>
+    {% for transactions in buy_transaction_list %}
+        <tr>
+            <td>{{ transactions.price }}</td>
+            <td>{{ transactions.amount }}</td>
+            <td>{{ transactions.order_id }}</td>
+            <td>{{ transactions.created }}</td>
+            <td>{{ transactions.last_updated }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+</div>
+{% endblock content %}
