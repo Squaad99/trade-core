@@ -23,5 +23,7 @@ urlpatterns = [
     path('stock/', include('stock.urls')),
     path('event/', include('event.urls')),
     path('strategy/', include('strategy.urls')),
+    path('order/', include('order.urls')),
+    path('strategy/', include('strategy.urls')),
     path('admin/', admin.site.urls),
 ]

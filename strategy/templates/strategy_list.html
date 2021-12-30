@@ -1,0 +1,32 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<div style="padding: 1%;">
+
+    <h1>Order list</h1>
+    <table class="list-table" style="margin-top: 25px;">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Production</th>
+        <th>Created</th>
+    </tr>
+    {% for strategy in strategy_list %}
+        <tr>
+            <td>{{ strategy.name }}</td>
+            <td>{{ strategy.description }}</td>
+            <td>{{ strategy.production }}</td>
+            <td>{{ strategy.created }}</td>
+        </tr>
+        {% for criteria in strategy.criteria_list %}
+        <tr>
+            <td>{{ criteria.data_name }}</td>
+            <td>{{ criteria.value_direction }}</td>
+            <td>{{ criteria.value_selection }}</td>
+            <td>{{ criteria.created }}</td>
+        </tr>
+    {% endfor %}
+    {% endfor %}
+    </table>
+
+</div>
+{% endblock content %}

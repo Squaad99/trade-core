@@ -1,0 +1,34 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<div style="padding: 1%;">
+
+    <h1>Order list</h1>
+    <table class="list-table" style="margin-top: 25px;">
+    <tr>
+        <th>Status</th>
+        <th>Ticker</th>
+        <th>Production</th>
+        <th>Strategy</th>
+        <th>Buy price</th>
+        <th>Profit target</th>
+        <th>Lose target</th>
+        <th>Created</th>
+        <th>Updated</th>
+    </tr>
+    {% for order in order_list %}
+        <tr>
+            <td>{{ order.status }}</td>
+            <td>{{ order.asset_ticker }}</td>
+            <td>{{ order.production }}</td>
+            <td>{{ order.strategy }}</td>
+            <td>{{ order.buy_transaction.price }}</td>
+            <td>{{ order.profit_target }}</td>
+            <td>{{ order.lose_target }}</td>
+            <td>{{ order.created }}</td>
+            <td>{{ order.last_updated }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+</div>
+{% endblock content %}

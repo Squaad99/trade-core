@@ -73,7 +73,7 @@ def buy_and_place_orders_job():
         buy_and_place_orders(avz_client, trade_suite_event)
     except Exception as error:
         result = "failure"
-        exception = str(exception)
+        exception = str(error)
 
     done_datetime = datetime.now(pytz.timezone('Europe/Stockholm'))
     done_time = done_datetime.strftime("%H:%M")

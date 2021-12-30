@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
@@ -11,7 +13,9 @@ class EventListView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['events'] = list(TradeSuiteEvent.objects.all()).reverse()
+        event_list = list(TradeSuiteEvent.objects.all())
+        event_list.reverse()
+        context['events'] = event_list
         return context
 
 
@@ -31,5 +35,5 @@ class TestBuyAndSellView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         avz_client = AvzClient()
-        buy_and_place_orders(avz_client, True)
+        buy_and_place_orders(avz_client, False)
         return context

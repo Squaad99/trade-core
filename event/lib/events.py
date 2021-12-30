@@ -1,12 +1,11 @@
 from avz_client.avz_client import AvzClient
-from event.models import TradeSuiteEvent
+from order.lib.ORDER_VARS import ORDER_ACTIVE
 from order.lib.order_handler import place_market_order_stop_loss_and_sell
+from order.models import Order
 from stock.models import Stock
 from strategy.lib.criteria_check import check_all_criteria
 from strategy.models import StockStrategy, StrategyCriteria
 from w_trade.w_trader import WTrader
-import pytz
-from datetime import datetime
 
 
 def buy_and_place_orders(avz_client: AvzClient, test_mode=False):
@@ -32,6 +31,18 @@ def buy_and_place_orders(avz_client: AvzClient, test_mode=False):
             criteria_result = check_all_criteria(criteria_list, data_set)
 
             if criteria_result:
-                place_market_order_stop_loss_and_sell(data_set.instrument.ticker, avz_client, strategy.production, test_mode)
+                place_market_order_stop_loss_and_sell(data_set.instrument.ticker,
+                                                      avz_client,
+                                                      strategy,
+                                                      test_mode)
 
 
+def check_order_and_transactions(avz_client: AvzClient, test_mode=False):
+    active_orders = list(Order.objects.all(status=ORDER_ACTIVE))
+
+    for order in active_orders:
+        order_created = order.created
+
+        print("ii")
+
+    print("dd")

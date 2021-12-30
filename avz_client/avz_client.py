@@ -4,7 +4,7 @@ import os
 from avanza import Avanza, OrderType
 from datetime import date
 
-from order.lib.constants import Transactions
+from order.lib.constants import TradeSettings
 from order.models import Order, BuyTransaction
 from w_trade.data.price_data import PriceData
 
@@ -44,11 +44,11 @@ class AvzClient:
         account_overview = self.client.get_account_overview(self.trade_account_id)
         return account_overview['totalBalance']
 
-    def buy_stock_market_price(self, ticker, amount_sek, production, test_mode=False):
+    def buy_stock_market_price(self, ticker, production, test_mode=False):
         stock_id = self.get_stock_id(ticker)
         info = self.client.get_stock_info(stock_id)
         sell_price = info['sellPrice']
-        amount = int(amount_sek / sell_price)
+        amount = int(TradeSettings.TRADE_AMOUNT.value / sell_price)
 
         if production and not self.client.check_available_balance(amount):
             print("Insufficient balance.")

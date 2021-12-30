@@ -1,7 +1,12 @@
+from django.urls import path
+
 from manage import RUN_MODE
 from strategy.models import StockStrategy, StrategyCriteria
+from strategy.views import StrategyListView
 
 urlpatterns = [
+    path('strategy-list/', StrategyListView.as_view(), name='strategy-list'),
+
 ]
 
 if RUN_MODE:
