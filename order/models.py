@@ -32,6 +32,8 @@ class Order(models.Model):
     lose_stop_loss_id = models.CharField(default='', max_length=50)
     last_updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+    dummy = models.CharField(default='', max_length=50)
+
 
     def __str__(self):
         return self.asset_ticker
