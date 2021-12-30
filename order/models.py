@@ -22,7 +22,7 @@ class SellTransaction(models.Model):
 class Order(models.Model):
     status = models.CharField(max_length=30, default=ORDER_ACTIVE)
     asset_ticker = models.CharField(max_length=30)
-    completed = models.BooleanField(default=False)
+    order_completed = models.BooleanField(default=False)
     production = models.BooleanField(default=False)
     strategy = models.ForeignKey(StockStrategy, on_delete=models.CASCADE)
     buy_transaction = models.ForeignKey(BuyTransaction, on_delete=models.CASCADE, blank=True, default=None, null=True)
