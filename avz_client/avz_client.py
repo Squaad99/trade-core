@@ -44,7 +44,7 @@ class AvzClient:
         account_overview = self.client.get_account_overview(self.trade_account_id)
         return account_overview['totalBalance']
 
-    def buy_stock_market_price(self, ticker, amount_sek, production):
+    def buy_stock_market_price(self, ticker, amount_sek, production, test_mode=False):
         stock_id = self.get_stock_id(ticker)
         info = self.client.get_stock_info(stock_id)
         sell_price = info['sellPrice']
@@ -76,17 +76,17 @@ class AvzClient:
                     price = deal['price']
                     volume = deal['volume']
 
-            buy_transaction = BuyTransaction(staus=Transactions.COMPLETED,
-                                             price=price,
+            buy_transaction = BuyTransaction(price=price,
                                              amount=volume,
                                              order_id=order_id)
-            buy_transaction.save()
+            if not test_mode:
+                buy_transaction.save()
 
         else:
-            buy_transaction = BuyTransaction(staus=Transactions.COMPLETED,
-                                             price=sell_price,
+            buy_transaction = BuyTransaction(price=sell_price,
                                              amount=amount)
-            buy_transaction.save()
+            if not test_mode:
+                buy_transaction.save()
 
         return buy_transaction
 

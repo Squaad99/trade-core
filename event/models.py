@@ -7,6 +7,8 @@ class TradeSuiteEvent(models.Model):
     date = models.CharField(max_length=50, default='')
     time_started = models.CharField(max_length=50, default='')
     time_completed = models.CharField(max_length=50, default="")
+    result = models.CharField(max_length=50, default="")
+    error = models.CharField(max_length=2000, default="")
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

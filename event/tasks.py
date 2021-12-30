@@ -2,6 +2,7 @@ import pytz
 
 from datetime import datetime
 
+from avz_client.avz_client import AvzClient
 from event.lib.events import buy_and_place_orders
 from event.models import TradeSuiteEvent
 
@@ -66,15 +67,19 @@ def buy_and_place_orders_job():
     trade_suite_event.save()
 
     result = "success"
+    exception = ""
     try:
-        buy_and_place_orders(trade_suite_event)
-    except Exception as e:
+        avz_client = AvzClient()
+        buy_and_place_orders(avz_client, trade_suite_event)
+    except Exception as error:
         result = "failure"
-
+        exception = str(exception)
 
     done_datetime = datetime.now(pytz.timezone('Europe/Stockholm'))
     done_time = done_datetime.strftime("%H:%M")
     trade_suite_event.time_completed = done_time
+    trade_suite_event.result = result
+    trade_suite_event.error = exception
     trade_suite_event.save()
 
 
