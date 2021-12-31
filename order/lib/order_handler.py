@@ -26,6 +26,7 @@ def place_market_order_stop_loss_and_sell(ticker, avz_client: AvzClient, strateg
         production=strategy.production,
         buy_transaction=buy_transaction,
         profit_target=profit_target,
-        lose_target=lose_target
+        lose_target=lose_target,
+        test_mode=test_mode
     )
     order.save()

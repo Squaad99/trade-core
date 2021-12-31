@@ -7,6 +7,7 @@ class BuyTransaction(models.Model):
     price = models.FloatField()
     amount = models.FloatField()
     order_id = models.CharField(max_length=30, blank=True, default="")
+    test_mode = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -15,6 +16,7 @@ class SellTransaction(models.Model):
     price = models.FloatField()
     amount = models.FloatField()
     order_id = models.CharField(max_length=30, blank=True)
+    test_mode = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -31,6 +33,7 @@ class Order(models.Model):
     lose_target = models.FloatField(default=0)
     lose_stop_loss_id = models.CharField(default='', max_length=50)
     last_updated = models.DateTimeField(auto_now=True)
+    test_mode = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     dummy = models.CharField(default='', max_length=50)
 

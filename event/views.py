@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 from avz_client.avz_client import AvzClient
 from event.lib.events import buy_and_place_orders
 from event.models import TradeSuiteEvent
+from order.models import Order, BuyTransaction, SellTransaction
 
 
 class EventListView(LoginRequiredMixin, TemplateView):
@@ -63,6 +64,9 @@ class TestEventsView(LoginRequiredMixin, TemplateView):
             trade_suite_event.result = result
             trade_suite_event.error = exception
             trade_suite_event.save()
-        elif command == "remove-buy-and-sell":
-            TradeSuiteEvent.objects.filter(name="Test Buy and Sell").delete()
+        elif command == "clear-test-data":
+            TradeSuiteEvent.objects.filter(test_mode=True).delete()
+            Order.objects.filter(test_mode=True).delete()
+            BuyTransaction.objects.filter(test_mode=True).delete()
+            SellTransaction.objects.filter(test_mode=True).delete()
         return context

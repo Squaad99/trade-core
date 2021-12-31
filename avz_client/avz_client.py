@@ -80,12 +80,14 @@ class AvzClient:
 
             buy_transaction = BuyTransaction(price=price,
                                              amount=volume,
-                                             order_id=order_id)
+                                             order_id=order_id,
+                                             test_mode=test_mode)
             buy_transaction.save()
 
         else:
             buy_transaction = BuyTransaction(price=sell_price,
-                                             amount=amount)
+                                             amount=amount,
+                                             test_mode=test_mode)
             buy_transaction.save()
 
         return buy_transaction
