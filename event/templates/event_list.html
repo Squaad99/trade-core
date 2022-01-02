@@ -11,6 +11,8 @@
         <th>Resultat</th>
         <th>Antal aktier</th>
         <th>Antal orders</th>
+        <th>Buy trans</th>
+        <th>Sell trans</th>
         <th>Tid start</th>
         <th>Tid klart</th>
         <th>Created</th>
@@ -22,7 +24,9 @@
             <td>{{ event.date }}</td>
             <td>{{ event.result }}</td>
             <td>{{ event.number_of_stocks }}</td>
-            <td>{{ event.number_of_trades }}</td>
+            <td>{{ event.number_of_orders }}</td>
+            <td>{{ event.number_of_buy_transactions }}</td>
+            <td>{{ event.number_of_sell_transactions }}</td>
             <td>{{ event.time_started }}</td>
             <td>{{ event.time_completed }}</td>
             <td>{{ event.created }}</td>

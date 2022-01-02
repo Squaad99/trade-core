@@ -1,6 +1,7 @@
 from avz_client.avz_client import AvzClient
 from borsdata.borsdata_client import BorsdataClient
 from w_trade.data.data_set import DataSet
+from w_trade.data.price_data import PriceData
 
 
 class WTrader:
@@ -26,3 +27,8 @@ class WTrader:
             instrument = self.borsdata_client.get_instrument_by_ticker(stock.ticker)
             data_sets.append(DataSet(instrument, self.borsdata_client, self.avz_client))
         return data_sets
+
+    def get_result_set(self, ticker, start_date):
+        instrument = self.borsdata_client.get_instrument_by_ticker(ticker)
+        data_set_list: [PriceData] = self.borsdata_client.get_daily_prices(instrument, start_date)
+        return data_set_list

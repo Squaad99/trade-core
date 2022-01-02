@@ -10,7 +10,9 @@ class TradeSuiteEvent(models.Model):
     result = models.CharField(max_length=50, default="")
     error = models.CharField(max_length=2000, default="")
     number_of_stocks = models.FloatField(default=0)
-    number_of_trades = models.FloatField(default=0)
+    number_of_orders = models.FloatField(default=0)
+    number_of_buy_transactions = models.FloatField(default=0)
+    number_of_sell_transactions = models.FloatField(default=0)
     test_mode = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
 

@@ -80,11 +80,14 @@ class BorsdataClient:
             market_ids.append(market.id)
         return self.borsdata.get_instruments(market_ids)
 
-    def get_daily_prices(self, instrument):
-        data_period = 90
+    def get_daily_prices(self, instrument, start_date=None):
         current_date = date.today()
-        first_date = current_date - timedelta(days=data_period)
-        first_date.strftime("%d-%m-%Y")
+        if start_date:
+            first_date = start_date
+        else:
+            data_period = 90
+            first_date = current_date - timedelta(days=data_period)
+            first_date.strftime("%d-%m-%Y")
 
         stock_prices = self.borsdata.get_instrument_stock_price(instrument.insId, str(first_date), str(current_date))
         data_set_list = []

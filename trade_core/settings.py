@@ -49,9 +49,9 @@ INSTALLED_APPS = [
 ]
 
 Q_CLUSTER = {
-   'retry': 5,
-   'timeout': 4,
-   'workers': 4,
+   'retry': 480,
+   'timeout': 320,
+   'workers': 2,
    'orm': 'default',
 }
 
