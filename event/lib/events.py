@@ -54,9 +54,7 @@ def check_order_and_transactions(avz_client: AvzClient, trade_suite_event: Trade
         order_created = order.created
         profit_target = order.profit_target
         lose_target = order.lose_target
-        test_date = order.created - timedelta(days=10)
         date_string = order_created.strftime("%Y-%m-%d")
-        date_string = test_date.strftime("%Y-%m-%d")
         result_set = w_trader.get_result_set(order.asset_ticker, date_string)
         order_completed = False
         order_successful = True
