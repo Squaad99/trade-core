@@ -1,8 +1,12 @@
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
+from django_q.brokers import get_broker
+from django_q.cluster import monitor
 from django_q.models import Schedule
+from django_q.monitor import info, get_ids
 from django_q.status import Stat
+import socket
 
 from event.models import TradeSuiteEvent
 from order.models import Order, BuyTransaction, SellTransaction
@@ -16,14 +20,6 @@ class EventListView(LoginRequiredMixin, TemplateView):
         event_list = list(TradeSuiteEvent.objects.all())
         event_list.reverse()
         context['events'] = event_list
-
-        dd = Stat.get_all()
-
-        for stat in Stat.get_all():
-            print(stat.cluster_id, stat.status)
-            stat = Stat.get(stat.cluster_id)
-            print(stat.status, stat.workers)
-
         return context
 
 
