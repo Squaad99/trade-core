@@ -48,10 +48,11 @@ INSTALLED_APPS = [
 ]
 
 Q_CLUSTER = {
-   'retry': 480,
-   'timeout': 320,
-   'workers': 2,
-   'orm': 'default',
+    'name': 'w_trader',
+    'retry': 480,
+    'timeout': 320,
+    'workers': 2,
+    'orm': 'default',
 }
 
 MIDDLEWARE = [

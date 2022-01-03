@@ -2,6 +2,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django_q.models import Schedule
+from django_q.status import Stat
+
 from event.models import TradeSuiteEvent
 from order.models import Order, BuyTransaction, SellTransaction
 
@@ -14,15 +16,14 @@ class EventListView(LoginRequiredMixin, TemplateView):
         event_list = list(TradeSuiteEvent.objects.all())
         event_list.reverse()
         context['events'] = event_list
-        return context
 
+        dd = Stat.get_all()
 
-class SchedulerStartView(LoginRequiredMixin, TemplateView):
-    template_name = "scheduler_start.html"
+        for stat in Stat.get_all():
+            print(stat.cluster_id, stat.status)
+            stat = Stat.get(stat.cluster_id)
+            print(stat.status, stat.workers)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        TradeSuiteEvent.objects.filter(name="Test check").delete()
         return context
 
 
@@ -43,7 +44,6 @@ class TestEventsView(LoginRequiredMixin, TemplateView):
                                                   repeats=1,
                                                   args="'test'")
             buy_and_sell_test_schedule.save()
-
         elif command == "test-check-order-and-transactions":
             job_name = "Test Check orders and transactions"
             Schedule.objects.filter(name=job_name).delete()
@@ -54,10 +54,10 @@ class TestEventsView(LoginRequiredMixin, TemplateView):
                                                   repeats=1,
                                                   args="'test'")
             buy_and_sell_test_schedule.save()
-
         elif command == "clear-test-data":
             TradeSuiteEvent.objects.filter(test_mode=True).delete()
             Order.objects.filter(test_mode=True).delete()
             BuyTransaction.objects.filter(test_mode=True).delete()
             SellTransaction.objects.filter(test_mode=True).delete()
+
         return context

@@ -1,7 +1,7 @@
 from django.urls import path
 from django_q.models import Schedule
 
-from event.views import EventListView, SchedulerStartView, TestEventsView
+from event.views import EventListView, TestEventsView
 from manage import RUN_MODE
 
 urlpatterns = [
