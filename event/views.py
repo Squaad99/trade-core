@@ -8,6 +8,7 @@ from django_q.monitor import info, get_ids
 from django_q.status import Stat
 import socket
 
+from event.lib.constants import EventEnum
 from event.models import TradeSuiteEvent
 from order.models import Order, BuyTransaction, SellTransaction
 
@@ -17,9 +18,16 @@ class EventListView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        event_list = list(TradeSuiteEvent.objects.all())
-        event_list.reverse()
-        context['events'] = event_list
+        buy_and_sell_event_list = list(TradeSuiteEvent.objects.filter(
+            name=EventEnum.BUY_AND_PLACE_ORDERS.value))
+        buy_and_sell_event_list.reverse()
+        context['buy_and_sell_event_list'] = buy_and_sell_event_list
+
+        check_transactions_and_order_list = list(TradeSuiteEvent.objects.filter(
+            name=EventEnum.CHECK_TRANSACTIONS_AND_ORDERS.value))
+        check_transactions_and_order_list.reverse()
+        context['check_transactions_and_order_list'] = check_transactions_and_order_list
+
         return context
 
 

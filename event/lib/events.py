@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from avz_client.avz_client import AvzClient
 from event.lib.constants import OrderEnum
 from event.models import TradeSuiteEvent

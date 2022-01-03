@@ -1,35 +1,29 @@
 {% extends "dashboard.html" %}
 {% block content %}
-<div style="padding: 1%;">
 
-    <h1>Trade events</h1>
-    <table class="list-table" style="margin-top: 25px;">
+<div class="column" style="float: left; width: 48%; padding: 1%;">
+    <h3>Buy and place orders</h3>
+    <table class="list-table-small">
     <tr>
-        <th>Namn</th>
-        <th>Stockholm tid</th>
-        <th>Date</th>
-        <th>Resultat</th>
-        <th>Antal aktier</th>
-        <th>Antal orders</th>
+        <th>Time started ST</th>
+        <th>Time Completed ST</th>
+        <th>Result</th>
+        <th>Stocks</th>
+        <th>Orders</th>
         <th>Buy trans</th>
         <th>Sell trans</th>
-        <th>Tid start</th>
-        <th>Tid klart</th>
-        <th>Created</th>
+        <th>Test</th>
     </tr>
-    {% for event in events %}
+    {% for event in buy_and_sell_event_list %}
         <tr>
-            <td>{{ event.name }}</td>
-            <td>{{ event.custom_full }}</td>
-            <td>{{ event.date }}</td>
+            <td>{{ event.time_started_st }}</td>
+            <td>{{ event.time_completed_st }}</td>
             <td>{{ event.result }}</td>
             <td>{{ event.number_of_stocks }}</td>
             <td>{{ event.number_of_orders }}</td>
             <td>{{ event.number_of_buy_transactions }}</td>
             <td>{{ event.number_of_sell_transactions }}</td>
-            <td>{{ event.time_started }}</td>
-            <td>{{ event.time_completed }}</td>
-            <td>{{ event.created }}</td>
+            <td>{{ event.test_mode }}</td>
         </tr>
         {% if event.result == "failure" %}
         <tr>
@@ -38,6 +32,39 @@
         {% endif %}
     {% endfor %}
     </table>
-
 </div>
+
+<div class="column" style="float: left; width: 48%; padding: 1%;">
+    <h3>Check transactions and orders</h3>
+    <table class="list-table-small">
+    <tr>
+        <th>Time started ST</th>
+        <th>Time Completed ST</th>
+        <th>Result</th>
+        <th>Stocks</th>
+        <th>Orders</th>
+        <th>Buy trans</th>
+        <th>Sell trans</th>
+        <th>Test</th>
+    </tr>
+    {% for event in check_transactions_and_order_list %}
+        <tr>
+            <td>{{ event.time_started_st }}</td>
+            <td>{{ event.time_completed_st }}</td>
+            <td>{{ event.result }}</td>
+            <td>{{ event.number_of_stocks }}</td>
+            <td>{{ event.number_of_orders }}</td>
+            <td>{{ event.number_of_buy_transactions }}</td>
+            <td>{{ event.number_of_sell_transactions }}</td>
+            <td>{{ event.test_mode }}</td>
+        </tr>
+        {% if event.result == "failure" %}
+        <tr>
+            <td colspan="7">Error: {{ event.error }}</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    </table>
+</div>
+
 {% endblock content %}
