@@ -8,6 +8,7 @@ RUN_MODE = True
 if "collectstatic" in args or "makemigrations" in args or "migrate" in args or "flush" in args or "createsuperuser" in args or "test" in args or "qcluster" in args:
     RUN_MODE = False
 
+
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'trade_core.settings')
     try:
@@ -18,7 +19,6 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    print("Run mode: {}".format(str(RUN_MODE)))
     execute_from_command_line(args)
 
 
