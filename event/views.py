@@ -14,13 +14,7 @@ class EventListView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        now = datetime.now()
-        today = datetime(now.year, now.month, now.day)
-
-        buy_and_sell_event_list = list(TradeSuiteEvent.objects.filter(
-            name=BUY_AND_PLACE_ORDERS,
-            created__year=now.year, created__month=now.month, created__day=now.day
-        ))
+        buy_and_sell_event_list = list(TradeSuiteEvent.objects.filter(name=BUY_AND_PLACE_ORDERS))
         buy_and_sell_event_list.reverse()
         context['buy_and_sell_event_list'] = buy_and_sell_event_list
 
