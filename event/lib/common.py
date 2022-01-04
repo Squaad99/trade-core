@@ -1,4 +1,6 @@
-from event.lib.constants import RESULT_ONGOING
+import datetime
+
+from event.lib.constants import RESULT_ONGOING, BUY_AND_PLACE_ORDERS
 from event.models import TradeSuiteEvent
 
 
@@ -32,3 +34,18 @@ def result_trade_suite_event(trade_suite_event: TradeSuiteEvent, result, error="
     trade_suite_event.result = result
     trade_suite_event.error = error
     trade_suite_event.save()
+
+
+def check_if_run_already(test_mode: bool):
+    if test_mode:
+        return False
+
+    now = datetime.now()
+    buy_and_sell_event_list = list(TradeSuiteEvent.objects.filter(
+        name=BUY_AND_PLACE_ORDERS,
+        created__year=now.year, created__month=now.month, created__day=now.day,
+        test_mode=test_mode
+    ))
+    if buy_and_sell_event_list:
+        return True
+    return False
