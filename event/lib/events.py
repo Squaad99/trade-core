@@ -1,5 +1,6 @@
 from avz_client.avz_client import AvzClient
-from event.lib.constants import OrderEnum
+from event.lib.common import update_trade_suite_event
+from event.lib.constants import ORDER_ONGOING, ORDER_COMPLETED
 from event.models import TradeSuiteEvent
 from order.lib.order_handler import place_market_order_stop_loss_and_sell
 from order.models import Order, SellTransaction
@@ -9,7 +10,8 @@ from strategy.models import StockStrategy, StrategyCriteria
 from w_trade.w_trader import WTrader
 
 
-def buy_and_place_orders(avz_client: AvzClient, trade_suite_event: TradeSuiteEvent, test_mode=False):
+def buy_and_place_orders(trade_suite_event: TradeSuiteEvent, test_mode=False):
+    avz_client = AvzClient()
     market_open = avz_client.is_market_open()
     if not market_open and not test_mode:
         return
@@ -19,10 +21,10 @@ def buy_and_place_orders(avz_client: AvzClient, trade_suite_event: TradeSuiteEve
         strategy_criteria_list = StrategyCriteria.objects.filter(stock_strategy__name=strategy.name)
         strategy.strategy_criteria_list = list(strategy_criteria_list)
     stocks = list(Stock.objects.all())
-    trade_suite_event.number_of_stocks = len(stocks)
 
     w_trader = WTrader(avz_client)
     data_set_list = w_trader.get_data_list_by_stock_list(stocks)
+    number_of_stocks = len(data_set_list)
 
     number_of_orders = 0
 
@@ -39,13 +41,14 @@ def buy_and_place_orders(avz_client: AvzClient, trade_suite_event: TradeSuiteEve
                                                       strategy,
                                                       test_mode)
                 number_of_orders += 1
-    trade_suite_event.number_of_orders = number_of_orders
-    trade_suite_event.number_of_buy_transactions = number_of_orders
+    update_trade_suite_event(trade_suite_event, number_of_orders, number_of_stocks, number_of_orders, 0)
 
 
-def check_order_and_transactions(avz_client: AvzClient, trade_suite_event: TradeSuiteEvent, test_mode=False):
+def check_order_and_transactions(trade_suite_event: TradeSuiteEvent, test_mode=False):
+    avz_client = AvzClient()
     w_trader = WTrader(avz_client)
-    active_orders = list(Order.objects.filter(status=OrderEnum.ORDER_ONGOING.value))
+    active_orders = list(Order.objects.filter(status=ORDER_ONGOING))
+    number_of_orders = len(active_orders)
     number_of_sell_transactions = 0
 
     for order in active_orders:
@@ -102,11 +105,11 @@ def check_order_and_transactions(avz_client: AvzClient, trade_suite_event: Trade
                 number_of_sell_transactions += 1
 
             if order_completed:
-                order.status = OrderEnum.ORDER_COMPLETED.value
+                order.status = ORDER_COMPLETED
                 order.sell_transaction = sell_transactions
                 order.successful = order_successful
                 order.save()
         else:
             print("Implement real selling")
 
-    trade_suite_event.number_of_sell_transactions = number_of_sell_transactions
+    update_trade_suite_event(trade_suite_event, number_of_orders, number_of_orders, 0, number_of_sell_transactions)

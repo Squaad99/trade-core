@@ -15,7 +15,9 @@ if RUN_MODE:
     if not existing_schedule:
         schedule = Schedule(name=name, func='event.tasks.buy_and_place_orders_job',
                             schedule_type=Schedule.CRON,
-                            cron='0 15 * * 1-5', repeats=-1)
+                            cron='0 15 * * 1-5',
+                            repeats=-1,
+                            args="'prod'")
         schedule.save()
 
     name = "Check orders and transactions"
@@ -23,5 +25,7 @@ if RUN_MODE:
     if not existing_schedule:
         schedule = Schedule(name=name, func='event.tasks.check_transactions_and_orders_job',
                             schedule_type=Schedule.CRON,
-                            cron='0 20 * * 1-5', repeats=-1)
+                            cron='0 20 * * 1-5',
+                            repeats=-1,
+                            args="'prod'")
         schedule.save()
