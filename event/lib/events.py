@@ -36,6 +36,9 @@ def buy_and_place_orders(trade_suite_event: TradeSuiteEvent, test_mode=False):
             criteria_result = check_all_criteria(criteria_list, data_set)
 
             if criteria_result:
+                exists = Order.objects.filter(strategy=strategy, asset_ticker=data_set.instrument.ticker)
+                if exists:
+                    return
                 place_market_order_stop_loss_and_sell(data_set.instrument.ticker,
                                                       avz_client,
                                                       strategy,

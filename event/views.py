@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django_q.models import Schedule
@@ -18,8 +16,7 @@ class EventListView(LoginRequiredMixin, TemplateView):
         buy_and_sell_event_list.reverse()
         context['buy_and_sell_event_list'] = buy_and_sell_event_list
 
-        check_transactions_and_order_list = list(TradeSuiteEvent.objects.filter(
-            name=CHECK_TRANSACTIONS_AND_ORDERS))
+        check_transactions_and_order_list = list(TradeSuiteEvent.objects.filter(name=CHECK_TRANSACTIONS_AND_ORDERS))
         check_transactions_and_order_list.reverse()
         context['check_transactions_and_order_list'] = check_transactions_and_order_list
 
