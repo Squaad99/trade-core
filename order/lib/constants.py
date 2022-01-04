@@ -6,11 +6,6 @@ class Transactions(enum.Enum):
     COMPLETED = 'COMPLETED'
 
 
-class OrderEnum(enum.Enum):
-    ORDER_ONGOING = "ONGOING"
-    ORDER_COMPLETED = "COMPLETED"
-
-
 class TradeSettings(enum.Enum):
     PROFIT_TARGET = 1.02
     LOSE_TARGET = 0.98

@@ -1,5 +1,5 @@
 from avz_client.avz_client import AvzClient
-from event.lib.constants import OrderEnum
+from event.lib.constants import *
 from order.lib.constants import TradeSettings
 from order.models import Order
 from strategy.models import StockStrategy
@@ -20,7 +20,7 @@ def place_market_order_stop_loss_and_sell(ticker, avz_client: AvzClient, strateg
         # Should place stop lose profit take and stop loss lose take
 
     order = Order(
-        status=OrderEnum.ORDER_ONGOING.value,
+        status=ORDER_ONGOING,
         asset_ticker=ticker,
         strategy=strategy,
         production=strategy.production,

@@ -1,19 +1,9 @@
-import enum
-import secrets
+BUY_AND_PLACE_ORDERS = "Buy and place orders"
+CHECK_TRANSACTIONS_AND_ORDERS = "Check transactions and orders"
+RESULT_SUCCESS = "Success"
+RESULT_FAILED = "Failed"
+RESULT_ONGOING = "Ongoing"
 
-
-class EventCodes(enum.Enum):
-    TEST_NAME = "Test"
-    TEST_CODE = secrets.token_urlsafe(13)
-
-    BUY_SELL_NAME = "Buy-Sell"
-    BUY_SELL_CODE = secrets.token_urlsafe(13)
-
-    CHECK_TRADES_NAME = "Check-Trades"
-    CHECK_TRADES_CODE = secrets.token_urlsafe(13)
-
-
-class OrderEnum(enum.Enum):
-    ORDER_ONGOING = "ONGOING"
-    ORDER_COMPLETED = "COMPLETED"
+ORDER_ONGOING = "ONGOING"
+ORDER_COMPLETED = "COMPLETED"
 

@@ -1,6 +1,6 @@
 from django.db import models
 
-from event.lib.constants import OrderEnum
+from event.lib.constants import ORDER_ONGOING
 from strategy.models import StockStrategy
 
 
@@ -23,7 +23,7 @@ class SellTransaction(models.Model):
 
 
 class Order(models.Model):
-    status = models.CharField(max_length=30, default=OrderEnum.ORDER_ONGOING.value)
+    status = models.CharField(max_length=30, default=ORDER_ONGOING)
     asset_ticker = models.CharField(max_length=30)
     production = models.BooleanField(default=False)
     strategy = models.ForeignKey(StockStrategy, on_delete=models.CASCADE)
