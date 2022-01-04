@@ -1,10 +1,11 @@
-from event.lib.common import get_test_mode, create_trade_suite_event, result_trade_suite_event
+from event.lib.common import get_test_mode, create_trade_suite_event, result_trade_suite_event, check_if_run_already
 from event.lib.constants import *
 from event.lib.events import buy_and_place_orders, check_order_and_transactions
 
 
 def buy_and_place_orders_job(mode=""):
     test_mode = get_test_mode(mode)
+    check_if_run_already(test_mode)
     trade_suite_event = create_trade_suite_event(BUY_AND_PLACE_ORDERS, test_mode)
 
     try:
@@ -20,6 +21,7 @@ def buy_and_place_orders_job(mode=""):
 
 def check_transactions_and_orders_job(mode=""):
     test_mode = get_test_mode(mode)
+    check_if_run_already(test_mode)
     trade_suite_event = create_trade_suite_event(CHECK_TRANSACTIONS_AND_ORDERS, test_mode)
 
     try:
