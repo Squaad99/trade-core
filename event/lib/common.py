@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from event.lib.constants import RESULT_ONGOING, BUY_AND_PLACE_ORDERS
 from event.models import TradeSuiteEvent

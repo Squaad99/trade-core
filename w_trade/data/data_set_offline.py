@@ -1,23 +1,14 @@
 import calendar
 import datetime
-
-from avz_client.avz_client import AvzClient
-from borsdata.borsdata_client import BorsdataClient
 from w_trade.data.calculator import get_percentage_diff
 from w_trade.data.price_data import PriceData
 from w_trade.data.waves import Waves
 
 
-class DataSet:
+class DataSetOffline:
 
-    def __init__(self, instrument, borsdata_client: BorsdataClient, avz_client: AvzClient):
-        self.instrument = instrument
-        self.borsdata_client = borsdata_client
-        self.data_set_list: [PriceData] = self.borsdata_client.get_daily_prices(instrument)
-        if avz_client is not None:
-            if self.avz_client.is_market_open():
-                self.avz_client = avz_client
-                self.data_set_list.append(self.avz_client.get_price_data_current_day(instrument.ticker, (len(self.data_set_list))))
+    def __init__(self, data_set_list):
+        self.data_set_list: [PriceData] = data_set_list
         self.last_date = self.data_set_list[-1].date
         self.week_day = self._get_week_day()
         self.days = len(self.data_set_list)

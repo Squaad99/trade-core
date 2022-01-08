@@ -12,6 +12,7 @@
 <body>
     <div class="mainDiv">
         <ul id="navbar">
+            <li class="menuItem"><a href="{% url 'home' %}">Home</a></li>
             <li class="menuItem"><a href="{% url 'stock-list' %}">Aktier</a></li>
             <li class="menuItem"><a href="{% url 'event-list' 'check' %}">Trade events</a></li>
             <li class="menuItem"><a href="{% url 'test-events' 'check' %}">Test events</a></li>

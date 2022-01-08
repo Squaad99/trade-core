@@ -96,3 +96,34 @@ class BorsdataClient:
             data_set_list.append(PriceData(stock_price, index))
             index += 1
         return data_set_list
+
+    def get_large_cap_instruments(self):
+        markets = self.borsdata.get_markets()
+        selected_exchanges = ["OMX Stockholm"]
+        selected_markets = ["Large Cap"]
+        large_cap_exclude = ["ATCO A", "CORE A", "CORE D", "ELUX A", "EPI A", "ERIC A", "ESSITY A", "FPAR PREF",
+                             "SHB A",
+                             "HOLM A", "HUSQ A", "INDU A", "INVE A", "KINV A", "NCC A", "KLED", "NENT A", "RATO A",
+                             "SCA A",
+                             "SEB A", "SKF A", "SSAB A", "SAGA A", "SAGA D", "SBB D", "SDIP PREF", "STE A", "SWEC A",
+                             "TEL2 A", "VOLV A", "FPAR A", "CORE PREF"]
+
+        market_list = []
+        for market in markets:
+            if market.name in selected_markets and market.exchangeName in selected_exchanges:
+                market_list.append(market)
+
+        market_ids = []
+
+        for market in market_list:
+            market_ids.append(market.id)
+
+        instrument_list = self.borsdata.get_instruments(market_ids)
+
+        selected_instrument_list = []
+
+        for instrument in instrument_list:
+            if instrument.ticker not in large_cap_exclude:
+                selected_instrument_list.append(instrument)
+
+        return selected_instrument_list

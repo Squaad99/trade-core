@@ -1,5 +1,6 @@
 import statistics
 
+from w_trade.data.constants import *
 from w_trade.data.negative_wave import NegativeWave
 from w_trade.data.positive_wave import PositiveWave
 from w_trade.data.price_data import PriceData
@@ -19,7 +20,9 @@ class Waves:
         self.total_amount = self.negative_waves_amount + self.positive_waves_amount
         self.all_waves = self._get_full_list()
         self._set_all_waves_stats()
+        self.last_wave_type = self._get_last_wave()
         self.current_wave = self._get_current_wave()
+        self.last_3 = self._last_3_days()
 
     def _get_positive_waves(self):
         wave_list = []
@@ -154,20 +157,41 @@ class Waves:
         result = (positive_after_negative / total_after_negative) * 100
         self.positive_after_negative_chance = round(result, 2)
 
-    def _get_current_wave(self):
+    def _get_last_wave(self):
         self.last_wave = self.all_waves[-1]
+        if type(self.last_wave) is PositiveWave:
+            self.last_wave_length = self.last_wave.length
+            self.last_wave_change = self.last_wave.change_percent
+            return POSITIVE_WAVE_TYPE
+        elif type(self.last_wave) is NegativeWave:
+            self.last_wave_length = self.last_wave.length
+            self.last_wave_change = self.last_wave.change_percent
+            return NEGATIVE_WAVE_TYPE
+        return NEUTRAL_WAVE_TYPE
+
+    def _get_current_wave(self):
         if self.last_wave.end_index == self.max_index:
             if type(self.last_wave) is PositiveWave:
                 self.current_wave_length = self.last_wave.length
                 self.current_wave_length = self.last_wave.change_percent
-                return "positive"
+                return POSITIVE_WAVE_TYPE
             elif type(self.last_wave) is NegativeWave:
                 self.current_wave_length = self.last_wave.length
                 self.current_wave_change = self.last_wave.change_percent
-                return "negative"
-        return "neutral"
+                return NEGATIVE_WAVE_TYPE
+        return NEUTRAL_WAVE_TYPE
 
+    def _last_3_days(self):
+        last_3 = self.data_set[-3:]
+        first = last_3[0].close
+        second = last_3[1].close
+        third = last_3[2].close
 
+        if first < second < third:
+            return POSITIVE_WAVE_TYPE
+        elif first > second > third:
+            return NEGATIVE_WAVE_TYPE
+        return NEUTRAL_WAVE_TYPE
 
 
 
